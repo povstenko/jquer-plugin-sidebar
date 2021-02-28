@@ -1,5 +1,5 @@
-
 $('#sidebar').Sidebar({
-    header: 'Menu',
-    items: ['a', 'b']
+    openTriggerId: 'openSidebar',
+    header: 'Title',
+    items: ['Home', 'Dashboard', 'Profile', 'Latest', 'Updates', 'News']
 });
