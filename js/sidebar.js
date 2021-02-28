@@ -9,7 +9,7 @@ $.fn.Sidebar = function (options) {
             'Item2': '#',
             'Item3': '#'
         },
-        width: 100,
+        width: 120,
         sidebarColor: 'gray', // color
         closeButtonColor: 'black',
         headerColor: 'white',
@@ -67,16 +67,6 @@ $.fn.Sidebar = function (options) {
             'margin-top': '0.5rem'
         }));
     }
-    // // Append Menu Items
-    // $.each(settings.items, function (i, item) {
-    //     sidebar.append($('<a href="#" class="' + settings.itemsClass + '">').append(item).css({
-    //         'text-decoration': 'none',
-    //         'color': settings.textColor,
-    //         'display': 'block',
-    //         'transition': '0.3s',
-    //         'margin-top': '0.5rem'
-    //     }));
-    // });
 
     // Show/Open Sidebar
     $('#' + settings.openTriggerId).click(function () {
