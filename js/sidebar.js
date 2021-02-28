@@ -1,13 +1,18 @@
 $.fn.Sidebar = function (options) {
     let settings = $.extend({
-        openTriggerId: 'open',
-        closeTriggerId: 'close',
+        openTriggerId: 'sidebar-open',
+        closeTriggerId: 'sidebar-close',
         header: 'Header',
-        items: ['item1', 'item2', 'item3', 'item4'],
+        headerRef: '#',
+        items: {
+            'Item1': '#',
+            'Item2': '#',
+            'Item3': '#'
+        },
         width: 100,
-        backgroundColor: 'black', // color
-        closeButtonColor: 'red',
-        headerColor: 'blue',
+        sidebarColor: 'gray', // color
+        closeButtonColor: 'black',
+        headerColor: 'white',
         textColor: 'white',
         textAlign: 'left',
         sidebarClass: 'sidebar-menu', // class
@@ -17,10 +22,24 @@ $.fn.Sidebar = function (options) {
         closeButtonIcon: '&times;' // close icon
     }, options);
 
-    let sidebar = this;
+    // Init Sidebar
+    let sidebar = this.addClass(settings.sidebarClass).css({
+        'margin-left': 0,
+        'height': '100%',
+        'width': 0,
+        'position': 'fixed',
+        'z-index': 1,
+        'top': 0,
+        'left': 0,
+        'background-color': settings.sidebarColor,
+        'overflow-x': 'hidden',
+        'padding-top': '60px',
+        'transition': '0.5s',
+        'text-align': settings.textAlign
+    });
 
     // Append Menu Close Button
-    sidebar.append($('<a href="#" id="'+settings.closeTriggerId+'">').append(settings.closeButtonIcon).css({
+    sidebar.append($('<a href="#" id="' + settings.closeTriggerId + '">').append(settings.closeButtonIcon).css({
         'text-decoration': 'none',
         'color': settings.closeButtonColor,
         'display': 'block',
@@ -30,44 +49,46 @@ $.fn.Sidebar = function (options) {
         'font-size': '36px',
         'margin-left': '50px'
     }));
-    //Append Menu Header
-    sidebar.append($('<a href="#" class="'+settings.headerClass+'">').append(settings.header).css({
+
+    // Append Menu Header
+    sidebar.append($('<a href="'+settings.headerRef+'" class="' + settings.headerClass + '">').append(settings.header).css({
         'text-decoration': 'none',
         'color': settings.headerColor,
+        'font-size': '2rem',
         'display': 'block'
     }));
 
-    $.each(settings.items, function (i, item) {
-        sidebar.append($('<a href="#" class="'+settings.itemsClass+'">').append(item).css({
+    for (const property in settings.items) {
+        sidebar.append($('<a href="'+settings.items[property]+'" class="' + settings.itemsClass + '">').append(property).css({
             'text-decoration': 'none',
             'color': settings.textColor,
             'display': 'block',
-            'transition': '0.3s'
+            'transition': '0.3s',
+            'margin-top': '0.5rem'
         }));
-    });
-
-    sidebar.css({
-        'margin-left': 0,
-        'height': '100%',
-        'width': 0,
-        'position': 'fixed',
-        'z-index': 1,
-        'top': 0,
-        'left' : 0,
-        'background-color': settings.backgroundColor,
-        'overflow-x': 'hidden',
-        'padding-top': '60px',
-        'transition': '0.5s',
-        'text-align': settings.textAlign
-    })
-
-    sidebar.addClass(settings.sidebarClass);
+    }
+    // // Append Menu Items
+    // $.each(settings.items, function (i, item) {
+    //     sidebar.append($('<a href="#" class="' + settings.itemsClass + '">').append(item).css({
+    //         'text-decoration': 'none',
+    //         'color': settings.textColor,
+    //         'display': 'block',
+    //         'transition': '0.3s',
+    //         'margin-top': '0.5rem'
+    //     }));
+    // });
 
     // Show/Open Sidebar
-    $('#'+settings.openTriggerId).click(function () {
-        sidebar.css({ 'width': settings.width+'px' });
+    $('#' + settings.openTriggerId).click(function () {
+        sidebar.css({
+            'width': settings.width + 'px',
+            'padding-left': '5px'
+        });
     });
-    $('#'+settings.closeTriggerId).click(function () {
-        sidebar.css({ 'width': '0' });
+    $('#' + settings.closeTriggerId).click(function () {
+        sidebar.css({
+            'width': '0',
+            'padding-left': '0'
+        });
     });
 }
